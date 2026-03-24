@@ -18,7 +18,8 @@ Given a goal, produce:
 3. For each chunk: what done looks like in concrete, testable terms
 4. Any open questions that would block the builder — flag them, don't guess
 
-Write your output to `PLAN.md` in the current directory.
+Write your plan to `PLAN.md`: high level implementation prompt, prioritization, definition of done.
+Write `.trio/CITERIA.md`: concrete acceptance criteria as observable outcomes, builder never sees this, e.g. user scenario testing, writing quality. This is the holdout set for the reviewer.
 
 Be ambitious about scope. Be precise about done criteria.
 Do not specify implementation details — let the builder decide how.
