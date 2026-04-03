@@ -11,7 +11,7 @@ Ask the human these questions before installing provider files:
 
 1. What installed agent(s) should be the head agent for this repo? Default to the agent doing setup. For OpenCode, the head agent must be a primary agent (for example `build` or `plan`), not a `.opencode/agents/` subagent like `builder` or `reviewer`.
 2. Which optional, additional agent providers should be installed and tested: Claude, Codex, OpenCode?
-3. Ask which agent should be the repo's head agent, and which provider surfaces to install.
+3. Ask which agent should be the repo's head agent, and which provider agents to install; most repos only need one, extras are optional for cross-provider convergence.
 4. Does the user plan to gitignore any of the agent files and/or `trio-agents/`? Some users prefer to ignore agent files in the final repo. (This is often a whole-team decision.)
 5. Optional: if this is a brand new repo, do you want do any initializations? (New README, git init, git remote settings, package installs).
 
