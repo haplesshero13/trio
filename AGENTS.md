@@ -9,11 +9,12 @@ Read `README.md` for the purpose and recommendations.
 
 Ask the human these questions before installing provider files:
 
+Open with a one line explanation of agent-trio and what this setup does; offer to expand on it if they want more.
+
 1. What installed agent(s) should be the head agent for this repo? Default to the agent doing setup. For OpenCode, the head agent must be a primary agent (for example `build` or `plan`), not a `.opencode/agents/` subagent like `builder` or `reviewer`.
-2. Which optional, additional agent providers should be installed and tested: Claude, Codex, OpenCode?
-3. Ask which agent should be the repo's head agent, and which provider agents to install; most repos only need one, extras are optional for cross-provider convergence.
-4. Does the user plan to gitignore any of the agent files and/or `trio-agents/`? Some users prefer to ignore agent files in the final repo. (This is often a whole-team decision.)
-5. Optional: if this is a brand new repo, do you want do any initializations? (New README, git init, git remote settings, package installs).
+2. Which agent provider should handle builder and reviewer work? Most repos use one. Multi-provider is optional.
+3. Does the user plan to gitignore any of the agent files and/or `trio-agents/`? Some users prefer to ignore agent files in the final repo. (This is often a whole-team decision.)
+4. Optional: if this is a brand new repo, do you want do any initializations? (New README, git init, git remote settings, package installs).
 
 - Unless the setup requires modifying existing files, prefer cheap `cp` operations first.
 - Make sure the user decides first if a agent-trio file should overwrite any existing files.
@@ -22,11 +23,16 @@ Ask the human these questions before installing provider files:
 Then:
 
 - create a minimal `README.md` if there is none
-- copy this repo's `trio-agents/AGENTS.md` into the target repo _root_ as the workflow contract, naming the target file for the head agent (`AGENTS.md`, `CLAUDE.md`, etc.). do _not_ put `trio-agents/AGENTS.md` in the target repo, use the root
+- copy `trio-agents/AGENTS.md` to the target repo root as `AGENTS.md` (or `CLAUDE.md`, etc.) — this is the workflow contract, not this setup file
 - copy `.claude/agents/` if the human uses Claude Code
 - copy `.codex/agents/` if the human uses Codex
 - copy `.opencode/agents/` if the human uses OpenCode
 - symlink `AGENTS.md`, `CLAUDE.md` if the human uses Claude Code
+- if multi-provider: verify and document cross-provider invocation in the workflow contract; predicted syntax:
+  - Claude: `claude --model opus --effort high --agent reviewer -p "..."`
+  - Codex: `codex exec -m gpt-5.4 --config model_reasoning_effort="high" 'Use @reviewer to ...'`
+  - OpenCode: `opencode run -m opencode/mimo-v2-pro-free --agent reviewer "..."` or `opencode run -m github-copilot/claude-haiku-4.5 "@reviewer ..."`
+- update the AGENTS.md/CLAUDE.md "Choosing models" section if the provider or agents differ from the defaults
 - copy `LEARNINGS.md` and create `.trio/criteria.md` for the future head agent and human
 - ensure the .gitignore is copied in, or contents appended to the target repo's .gitignore
 - any optional setup tasks you received

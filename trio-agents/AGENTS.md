@@ -3,13 +3,10 @@
 The head agent may either delegate inside its own harness or invoke another installed provider non-interactively for builder/reviewer work.
 
 ## Choosing models for agents
-- If the user wants to customize the delegated models, either update `model:` parameters in the agents definition files, or update the examples with their preferences
-- If local CLI syntax differs for non-interactive agents, test locally then update the examples
 
-Examples: 
-- Claude `claude --model opus --effort high --agent reviewer -p "..."`
-- Codex `codex exec -m gpt-5.4 --config model_reasoning_effort="high" 'Use @reviewer to ...'`
-- OpenCode supports both `opencode run -m opencode/mimo-v2-pro-free --agent reviewer "..."` and `opencode run -m github-copilot/claude-haiku-4.5 "@reviewer ..."`.
+To customize models, update `model:` parameters in the agent definition files.
+
+Default: delegate to subagents — `@builder` and `@reviewer`.
 
 ## Principles
 
