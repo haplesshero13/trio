@@ -44,9 +44,34 @@ Always be kind to your ensemble; that also means not papering over hard truths.
 
 A good artifact lets a human answer what happened, why it happened, what evidence exists, what remains uncertain, and what should happen next.
 
-`.trio/criteria.md` is a gitignored holdout — a living conversation between the human and head instance that encodes how the reviewer can "validate everything" against reality.
+**Separation of Concerns for Planning:**
 
-`PLAN.md` contains: goal, constraints, done criteria, and any task chunking. This is the context for the current task.
+- `PLAN.md` tells the _builder_ **what to do**: goals, constraints, architecture, and task slices. It is the context for the current task.
+- `.trio/criteria.md` tells the _reviewer_ **how to verify**: specific test commands, acceptance criteria, and evidence required. It is a gitignored holdout — a living conversation between the human and head instance.
+
+Both should stay minimal: only include what is needed to guide the current task and the review.
+
+**Minimum required sections:**
+
+- `PLAN.md`:
+  - `## Goal`
+  - `## Constraints`
+  - `## Done criteria`
+  - `## Slices` when the task benefits from vertical slices
+- `.trio/criteria.md`:
+  - `## Verification`
+  - `## Acceptance criteria`
+  - `## Evidence`
+- `HANDOFF.md`:
+  - `## Completed`
+  - `## Remaining`
+  - `## Blockers` when anything is still blocked or uncertain
+- `REVIEW.md`:
+  - `## Status`
+  - `## Findings`
+  - `## Required follow-up` when status is not `APPROVED`
+
+Keep everything else up to the agent's judgment unless the current task truly needs more structure.
 
 `LEARNINGS.md` keeps the current durable lessons close at hand (use source control to track its changes over time). The head agent owns this file, because the head owns long-range planning, context management, and agent coordination. Keep it human-readable, short, durable, and behavior-changing. Each learning should look like an understanding delta, not a diary entry:
 
