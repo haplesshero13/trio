@@ -1,5 +1,5 @@
 name = "builder"
-description = "Thin Codex wrapper around the agent-trio builder template."
+description = "Codex wrapper around the agent-trio builder template."
 developer_instructions = """
-Read `trio-agents/builder.md` and follow it exactly.
+Read `agents/builder.md` and follow it exactly.
 """

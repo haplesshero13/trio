@@ -1,5 +1,5 @@
 name = "reviewer"
-description = "Thin Codex wrapper around the agent-trio reviewer template."
+description = "Codex wrapper around the agent-trio reviewer template."
 developer_instructions = """
-Read `trio-agents/reviewer.md` and follow it exactly.
+Read `agents/reviewer.md` and follow it exactly.
 """

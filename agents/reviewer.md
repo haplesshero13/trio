@@ -1,7 +1,14 @@
-# agent-trio Reviewer
+---
+name: reviewer
+description: |
+  Use this agent when HANDOFF.md exists and the builder's work needs evaluation.
+  The reviewer checks the work against the plan and verification criteria in a
+  separate context, then writes REVIEW.md with status, findings, and follow-up.
+model: inherit
+---
 
 Read `README.md` for the repo purpose and principles.
-Read `AGENTS.md` for the workflow contract.
+The workflow contract is in `skills/using-agent-trio/SKILL.md` (loaded by your runtime via plugin discovery or skill symlink).
 Read `HANDOFF.md` for the builder's claim.
 Read `PLAN.md` for the current task.
 Read `.trio/criteria.md` for the verification holdout.

@@ -6,18 +6,62 @@ Once upon a time, humans hand-wired computers to program them. Thankfully, someo
 
 **agent trio** is not a swarm framework. It does not optimize for agent count or lines of code output. It is for introducing _just the right amount of friction_. You should spend tokens to maximize judgement and quality, not output or wasteful rework. **agent trio** helps you do that. See the [intro blog post](https://averyyen.dev/2026/04/01/introducing-agent-trio.html) for more.
 
-## How to use
+**How is this different from `/review`?** `/review` is a one-shot critique of git state; agent-trio holds out `.trio/criteria.md` _before_ building, so the review phase checks the implementation against criteria set before it existed.
 
-Use this repo by booting up your agent in this repo (one that reads AGENTS.md or CLAUDE.md) and tell it the target repo path you want to turn into a agent-trio repo. It will ask you whether this is a fresh install or upgrade, and what agents you use, etc.
+**How is this different from [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc)?** That plugin ships cross-provider adversarial review as a skill; agent-trio is the plan → build → review → learn loop around it, and the reviewer can invoke `/codex:adversarial-review` as one of its inputs.
 
-**Recommendations.** I recommend you select a more efficient (but not _deliberately cheap_) builder model, and a similar-or-stronger reviewer model. Keep your expensive tokens for reasoning and judgement. You could for example use Codex + GPT-5.4 (xhigh) as the planner, and GPT-5.4 (med) for the builder and reviewer subagents. Claude Code can spawn Opus reviewer and Sonnet builder subagents. Or go rainbow providers; you just need to let your setup agent know.
+**Recommendations.** I recommend you select a more efficient (but not _deliberately cheap_) builder model, and a similar-or-stronger reviewer model. Keep your expensive tokens for reasoning and judgement. You could for example use Codex + GPT-5.4 (xhigh) as the planner and reviewer, and GPT-5.4 (med) for the builder. Claude Code can spawn Opus reviewer and Sonnet builder subagents. Or go rainbow providers — you just need to configure your agents accordingly.
+
+## Installation
+
+Agent-trio installs as a plugin that injects the workflow contract and agents into your coding agent session.
+
+**Claude Code:**
+
+Register the plugin marketplace, then install:
+
+```bash
+/plugin marketplace add haplesshero13/agent-trio
+/plugin install agent-trio@trio-marketplace
+```
+
+Or add to your project's `.claude/settings.json`:
+
+```json
+{
+  "plugins": ["agent-trio@git+https://github.com/haplesshero13/agent-trio.git"]
+}
+```
+
+**OpenCode:**
+
+Add to your `opencode.json`:
+
+```json
+{ "plugin": ["agent-trio@git+https://github.com/haplesshero13/agent-trio.git"] }
+```
+
+See `.opencode/INSTALL.md` for details.
+
+**Codex:**
+
+```bash
+git clone https://github.com/haplesshero13/agent-trio.git ~/.codex/agent-trio
+mkdir -p ~/.agents/skills && ln -s ~/.codex/agent-trio/skills ~/.agents/skills/agent-trio
+```
+
+See `.codex/INSTALL.md` for details.
+
+**Cursor:**
+
+Search for "agent-trio" in the plugin marketplace, or see `.cursor-plugin/plugin.json` for manual setup.
 
 ## Quick file guide
 
-- `AGENTS.md`: the setup directive for turning a repo into a agent-trio repo
-- `trio-agents/AGENTS.md`: the agent-trio head agent + subagent contracts
-- `trio-agents/builder.md`: the builder subagent
-- `trio-agents/reviewer.md`: the reviewer subagent
+- `AGENTS.md`: developer guide — repo structure, how to make changes, validation checklist
+- `skills/using-agent-trio/SKILL.md`: the workflow contract (imperative, with first-session bootstrap and delegation)
+- `agents/builder.md`, `agents/reviewer.md`: the builder/reviewer agent definitions
 - `LEARNINGS.md`: the checked-in lessons that still change how the next loop runs
 - `PLAN.md`, `HANDOFF.md`, `REVIEW.md`: the gitignored agent coordination files
 - `.opencode/agents/`, `.claude/agents/`, `.codex/agents/`: provider wrappers around the roles
+- `.claude-plugin/`, `.cursor-plugin/`: plugin manifests for marketplace distribution

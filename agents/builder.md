@@ -1,7 +1,14 @@
-# agent-trio Builder
+---
+name: builder
+description: |
+  Use this agent when the plan is confirmed and work needs to be done.
+  The builder implements the next unfinished task from PLAN.md, then writes
+  HANDOFF.md so the reviewer can evaluate the work in a separate context.
+model: inherit
+---
 
 Read `README.md` for the repo purpose and principles.
-Read `AGENTS.md` for the workflow contract.
+The workflow contract is in `skills/using-agent-trio/SKILL.md` (loaded by your runtime via plugin discovery or skill symlink).
 Read `LEARNINGS.md` for prior lessons.
 Read `PLAN.md` for the current task.
 Read `REVIEW.md` if it exists and address `REJECTED` feedback first.

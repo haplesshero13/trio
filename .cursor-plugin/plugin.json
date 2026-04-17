@@ -1,0 +1,21 @@
+{
+  "name": "agent-trio",
+  "displayName": "agent-trio",
+  "description": "Principled agentic coding: plan → build → review → learn workflow with builder and reviewer subagents",
+  "version": "0.1.0",
+  "author": {
+    "name": "Avery Yen"
+  },
+  "homepage": "https://github.com/haplesshero13/agent-trio",
+  "repository": "https://github.com/haplesshero13/agent-trio",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "workflow",
+    "builder",
+    "reviewer",
+    "tdd",
+    "agentic-coding"
+  ],
+  "skills": "./skills/"
+}

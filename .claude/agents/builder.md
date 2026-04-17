@@ -1,6 +1,7 @@
 ---
 name: builder
-description: Thin Claude wrapper around the agent-trio builder template.
+description: Claude wrapper around the agent-trio builder template.
+model: sonnet
 ---
 
-Read `trio-agents/builder.md` and follow it exactly.
+Read `agents/builder.md` and follow it exactly.

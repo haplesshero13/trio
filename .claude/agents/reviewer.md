@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Thin Claude wrapper around the agent-trio reviewer template.
+description: Claude wrapper around the agent-trio reviewer template.
 ---
 
-Read `trio-agents/reviewer.md` and follow it exactly.
+Read `agents/reviewer.md` and follow it exactly.
