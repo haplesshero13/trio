@@ -47,10 +47,12 @@ See `.opencode/INSTALL.md` for details.
 
 ```bash
 git clone https://github.com/haplesshero13/agent-trio.git ~/.codex/agent-trio
-mkdir -p ~/.agents/skills && ln -s ~/.codex/agent-trio/skills ~/.agents/skills/agent-trio
+ln -s ~/.codex/agent-trio/skills/using-agent-trio ~/.codex/skills/using-agent-trio
 ```
 
-See `.codex/INSTALL.md` for details.
+The skill operates in `consult`, `plan`, or `execute` mode depending on what you ask — it will not create planning files for read-only questions or simple guidance. Builder and reviewer agents are available when Codex runs inside a checkout; without them, the head instance acts locally and still honors the full artifact contract.
+
+See `.codex/INSTALL.md` for full details and examples.
 
 **Cursor:**
 

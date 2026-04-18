@@ -13,6 +13,7 @@ Read `HANDOFF.md` for the builder's claim.
 Read `PLAN.md` for the current task.
 Read `.trio/criteria.md` for the verification holdout.
 Read `LEARNINGS.md` for prior lessons.
+If `REVIEW.md` already exists, read it and extract the current `## Retry count` value.
 
 Answer two questions:
 
@@ -22,10 +23,9 @@ Answer two questions:
 Verify claims against running behavior where possible.
 When done, write `REVIEW.md` only:
 
-- `## Status`: `APPROVED`, `REJECTED`, or `ESCALATE`.
+- `## Retry count: N` — start at `0`; if a prior `REVIEW.md` existed, increment its count by `1`. Write this as the first line.
+- `## Status`: `APPROVED`, `REJECTED`, or `ESCALATE`. Auto-`ESCALATE` when the retry count reaches `3`.
 - `## Findings`: evidence against `.trio/criteria.md` and plan alignment.
 - `## Required follow-up`: what the builder or human must do if not `APPROVED`.
 Do not modify implementation files.
-
-Retry count starts at `0`, increments on `REJECTED`, and auto-`ESCALATE`s at `3`.
 Do not update `LEARNINGS.md`; the head instance owns long-range learnings.

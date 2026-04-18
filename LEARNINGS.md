@@ -43,6 +43,48 @@ A one-shot `codex exec --full-auto --skip-git-repo-check` with a reviewer prompt
 **Why:** Adversarial review across model families surfaces a different class of findings than same-family review.
 **How to apply:** For loops where the stakes or scope justify it, dispatch Codex (or any peer runtime) as the reviewer instead of `@reviewer`. The head keeps owning PLAN, criteria, and LEARNINGS.
 
+### Skill triggers need negative cases, not just positive ones
+
+The original `using-agent-trio` description said "Use when starting any conversation," which caused it to grab read-only and one-shot sessions where trio overhead adds no value. The fix was to rewrite the description with explicit "when not to use" cases and add a `## Modes` section that gates artifact creation by mode.
+**Why:** A skill with only a positive trigger fires too broadly. Without explicit exclusions, agents apply the workflow to questions that just need a direct answer.
+**How to apply:** Every skill description should include at least one "do NOT use for X" clause. When the skill governs file creation, add a mode table that maps intent → allowed files so the agent can gate artifact writes before doing anything else.
+
+### Delegation should be conditional, not automatic
+
+Claiming "dispatch the builder and reviewer as subagents" without qualification implies delegation always happens, which is false in environments without agent discovery (e.g., outside a checkout). The REJECT caught this; the fix was to add explicit conditions: agents discoverable **and** user explicitly asked.
+**Why:** Unconditional delegation language creates false expectations and fails silently when agents aren't available.
+**How to apply:** Write delegation rules as conditionals ("dispatch when X and Y; otherwise do Z locally"). Always describe the local fallback so the loop doesn't stall.
+
+### Vendored wrappers are incomplete without their templates
+
+`.codex/agents/*.toml` wrappers hard-code paths to `agents/builder.md` and `agents/reviewer.md`. If someone copies only the `.toml` files into their own repo, the agents fail to load. The docs initially said "copy the `.toml` files" without mentioning the markdown templates.
+**Why:** Thin wrappers are only thin if the reader knows what they depend on.
+**How to apply:** When documenting how to vendor agent wrappers, always list every file that must be copied, including the files the wrappers reference.
+
+### Codex skill install path is ~/.codex/skills/, not ~/.agents/skills/
+
+The original install instructions in README.md and .codex/INSTALL.md documented `~/.agents/skills/` as the Codex skills directory. That path does not exist and is never created by Codex. The correct path, confirmed by examining `~/.codex/skills/.system/` where Codex stores built-in skills, is `~/.codex/skills/`. The incorrect path silently caused all smoke tests of global skill discovery to fail.
+**Why:** Using a wrong path in install docs means the skill is never discovered globally, making the entire install story non-functional. The smoke test uncovered it because the throwaway-directory test requires the symlink to actually work.
+**How to apply:** Verify install paths by checking where the runtime already writes its own files (e.g., `.system/` directory) rather than guessing. Always run the install steps from scratch in a fresh environment as part of smoke testing.
+
+### Agent instructions must be internally consistent with SKILL.md routing
+
+`SKILL.md` defined routing logic that depended on builder status keywords and reviewer retry counts, but neither `builder.md` nor `reviewer.md` had instructions to produce those values. The routing in `SKILL.md` was effectively dead code. The fix was to add `## Status` to the builder's HANDOFF format and make the reviewer read its own prior `REVIEW.md` for the retry count before overwriting it.
+**Why:** A head-agent routing table is only as good as the data the subagents actually write. If you add routing logic to `SKILL.md`, always trace back to whether the builder or reviewer is instructed to emit the values that logic depends on.
+**How to apply:** When adding a new routing branch to `SKILL.md`, immediately check `builder.md` and `reviewer.md` to confirm they produce the required output. Treat them as a three-file system, not independent documents.
+
+### Hold-out guarantees require architectural separation, not just instructions
+
+The local fallback path instructs the head agent to "not read `.trio/criteria.md` until the reviewer phase." This is a prompt constraint, not a mechanical guarantee — if the agent wrote the criteria in the same context window, it already knows the contents. True holdout only works when builder and reviewer run in genuinely separate contexts (different subagent dispatches).
+**Why:** Misrepresenting a prompt constraint as a mechanical guarantee sets false expectations and may cause teams to rely on the local fallback for adversarial review when it cannot deliver it.
+**How to apply:** Document the difference explicitly. If the stakes of a task require genuine review independence, delegate to a separate subagent — don't use the local fallback path.
+
+### Smoke tests must run from scratch, not be inherited from prior builds
+
+The previous build cycle's HANDOFF.md carried forward Tests 4 and 5 as "evidence" without re-running them. The reviewer caught that Tests 1–3 lacked actual command output, and that Test 5 bypassed the head-agent path entirely. The fix required re-running all five tests with real commands and real output.
+**Why:** "Carried forward from previous build" is not evidence. The reviewer cannot verify claims that have no command transcript attached.
+**How to apply:** Every smoke test in HANDOFF.md must include the actual command run and the actual output observed. Never summarize or inherit. If re-running a test is impractical, say so explicitly in Blockers — don't quietly forward a prior result.
+
 ### Criteria and repo shape drift together
 
 When you delete a concept from the repo, audit `.trio/criteria.md` in the same loop. A stale criterion (e.g. "grep for trio-agents returns nothing across all .md") can fail against a repo that is otherwise correct, because LEARNINGS.md intentionally keeps historical mentions.

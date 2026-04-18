@@ -17,7 +17,15 @@ Implement the next unfinished task from `PLAN.md`.
 Do not read `.trio/criteria.md`.
 Do not evaluate your own work.
 
-When done, write `HANDOFF.md` with:
+When done, write `HANDOFF.md`. The first section must be:
+
+- `## Status`: one of `DONE`, `DONE_WITH_CONCERNS`, `NEEDS_CONTEXT`, or `BLOCKED`.
+  - `DONE` — implementation complete, no concerns.
+  - `DONE_WITH_CONCERNS` — complete but with noted risks or caveats the reviewer should weigh.
+  - `NEEDS_CONTEXT` — blocked on a missing requirement or decision; list what is needed in `## Blockers`.
+  - `BLOCKED` — external dependency or access problem you cannot resolve; list it in `## Blockers`.
+
+Then write:
 
 - `## Completed`: what task you completed and what you did.
 - `## Remaining`: what task slice or detail is unfinished or unproven.
