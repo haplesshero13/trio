@@ -1,7 +1,7 @@
 {
   "name": "agent-trio",
   "description": "Principled agentic coding: plan → build → review → learn workflow with builder and reviewer subagents",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Avery Yen"
   },
