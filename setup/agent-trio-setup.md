@@ -146,6 +146,10 @@ repo and is not part of the default generated output.
 
 Setup may write:
 
+- `.agents/plugins/marketplace.json` — adds a local marketplace entry for
+  `agent-trio` when configuring this repo as a Codex plugin marketplace.
+- `.codex-plugin/plugin.json` — records plugin metadata and points Codex at
+  `./skills/`. Setup should not duplicate skill content here.
 - `.codex/agents/builder.toml` — thin TOML wrapper. Records the builder
   model in the `description` field since TOML wrappers do not currently
   carry a typed model selector; the actual model is picked at invocation
@@ -162,8 +166,11 @@ Vendoring requires copying `agents/builder.md` and `agents/reviewer.md`
 into the target repo too, since the `.toml` wrappers reference those files
 by path. Setup must list these files explicitly and confirm before copying.
 
-In `plugin-only` mode on Codex, setup prints the `codex exec` invocations
-the user should use and does not write any files.
+In `plugin-only` mode on Codex, setup prints the marketplace install flow:
+`codex plugin marketplace add <source>`, then open `/plugins`, select
+**Agent Trio**, and install it. For older Codex builds without marketplace
+support, setup may print the direct `~/.codex/skills/using-agent-trio` symlink
+fallback from `.codex/INSTALL.md`.
 
 ## Files setup will never touch
 

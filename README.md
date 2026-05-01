@@ -36,10 +36,11 @@ Or add to your project's `.claude/settings.json`:
 **Codex:**
 
 ```bash
-git clone https://github.com/haplesshero13/agent-trio.git ~/.codex/agent-trio
-mkdir -p ~/.codex/skills
-ln -sfn ~/.codex/agent-trio/skills/using-agent-trio ~/.codex/skills/using-agent-trio
+codex plugin marketplace add haplesshero13/agent-trio
 ```
+
+Then open Codex, run `/plugins`, select **Agent Trio**, and install it. For local
+development from this checkout, run `codex plugin marketplace add .`.
 
 The skill operates in `consult`, `plan`, or `execute` mode depending on what you ask — it will not create planning files for read-only questions or simple guidance. Builder and reviewer agents are available when Codex runs inside a checkout; without them, the head instance acts locally and still honors the full artifact contract.
 
@@ -83,6 +84,7 @@ The setup flow only writes to files it tells you about first; see `setup/agent-t
 - `.trio/learnings.md`: the checked-in lessons that still change how the next loop runs
 - `.trio/plan.md`, `.trio/handoff.md`, `.trio/review.md`: the gitignored agent coordination files
 - `.claude/agents/`, `.codex/agents/`: provider wrappers around the roles
+- `.codex-plugin/`, `.agents/plugins/`: Codex plugin manifest and marketplace metadata
 - `.opencode/`: OpenCode plugin — `plugins/agent-trio.js`, `package.json`, `INSTALL.md`
 - `.claude-plugin/`: plugin manifest for marketplace distribution
 - `commands/setup.md`: `/agent-trio:setup` slash command for Claude Code

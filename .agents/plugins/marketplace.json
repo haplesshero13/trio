@@ -1,0 +1,20 @@
+{
+  "name": "agent-trio-marketplace",
+  "interface": {
+    "displayName": "Agent Trio"
+  },
+  "plugins": [
+    {
+      "name": "agent-trio",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Coding"
+    }
+  ]
+}

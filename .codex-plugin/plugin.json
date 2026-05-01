@@ -1,0 +1,38 @@
+{
+  "name": "agent-trio",
+  "version": "0.1.0",
+  "description": "Principled agentic coding: plan, build, review, and learn with builder and reviewer agents.",
+  "author": {
+    "name": "Avery Yen",
+    "url": "https://github.com/haplesshero13"
+  },
+  "homepage": "https://github.com/haplesshero13/agent-trio",
+  "repository": "https://github.com/haplesshero13/agent-trio",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "workflow",
+    "builder",
+    "reviewer",
+    "agentic-coding"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agent Trio",
+    "shortDescription": "Run a plan, build, review, learn loop in Codex.",
+    "longDescription": "Agent Trio adds a lightweight workflow contract for Codex: plan the work, build in a separate role, review against held-out criteria, and record durable learnings.",
+    "developerName": "Avery Yen",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/haplesshero13/agent-trio",
+    "defaultPrompt": [
+      "Use agent-trio to plan, build, review, and learn."
+    ],
+    "brandColor": "#111111",
+    "screenshots": []
+  }
+}

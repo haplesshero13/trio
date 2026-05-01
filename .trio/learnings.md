@@ -96,3 +96,9 @@ When you delete a concept from the repo, audit `.trio/criteria.md` in the same l
 OpenCode can load a published npm plugin from the `plugin` array, while local/git-checkout usage is better represented by a shim in `~/.config/opencode/plugins/` that imports the checkout's plugin file. Treating a git URL as if it were the same as an npm plugin created an install story that did not match the current OpenCode CLI/docs.
 **Why:** Users with a normal `~/.config/opencode/opencode.json` keep model/provider config there, but a local plugin shim is discovered from the plugins directory, not from a fake npm package entry.
 **How to apply:** Document both paths explicitly: `plugin: ["agent-trio"]` only after npm publish; global shim for local or git-checkout installs. Verify with `opencode debug config`, `opencode debug skill`, and `opencode agent list`.
+
+### Codex plugin install is marketplace registration plus `/plugins`
+
+Codex CLI exposes `codex plugin marketplace add`, not a direct `codex plugin install` command. A repo can still be first-class installable by providing `.codex-plugin/plugin.json` and `.agents/plugins/marketplace.json`; after adding the marketplace, the user installs the plugin from `/plugins`.
+**Why:** Symlinking into `~/.codex/skills` works as a fallback, but it bypasses Codex's native plugin UI and does not match the current user-facing install flow.
+**How to apply:** For Codex plugin repos, keep `.codex-plugin/plugin.json` at the plugin root, keep marketplace metadata in `.agents/plugins/marketplace.json`, document `codex plugin marketplace add <source>` followed by `/plugins`, and validate local changes with `HOME=/tmp/... codex plugin marketplace add .`.

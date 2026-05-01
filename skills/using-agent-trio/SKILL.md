@@ -189,7 +189,9 @@ Every platform dispatches with one of the prompts above. The invocation shell di
 
 **Codex:**
 
-*Skill discovery (global):* The install symlinks the skill to `~/.codex/skills/using-agent-trio`, making `using-agent-trio` discoverable from any working directory regardless of project. This is a globally available skill.
+*Skill discovery (plugin marketplace):* Install via `codex plugin marketplace add <source>`, then open `/plugins`, select **Agent Trio**, and install it. Codex reads `.codex-plugin/plugin.json`, which points at `./skills/`, making `using-agent-trio` discoverable through native plugin discovery.
+
+*Skill discovery (manual fallback):* Older Codex builds can symlink the skill to `~/.codex/skills/using-agent-trio`, making `using-agent-trio` discoverable from any working directory regardless of project.
 
 *Agent wrappers (repo-local):* The `builder` and `reviewer` agents live in `.codex/agents/` inside this repo. They are **only available when Codex runs inside a checkout of agent-trio**. The wrappers are thin — they read `agents/builder.md` / `agents/reviewer.md` and follow them. They do not contain workflow logic. To use them in another project, copy both the `.toml` wrappers from `.codex/agents/` and the markdown templates from `agents/` — the wrappers reference those files directly and will not work without them.
 

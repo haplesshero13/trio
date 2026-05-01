@@ -7,11 +7,13 @@ This is a skill/plugin repo. The workflow contract is `skills/using-agent-trio/S
 1. Edit content in `skills/` or `agents/`.
 2. Do **not** duplicate content into wrappers — wrappers say "Read `agents/builder.md` and follow it exactly."
 3. Run `claude plugin validate .` to check that `.claude-plugin/plugin.json` is valid.
-4. If you add a new agent or skill, update the relevant plugin manifest.
+4. Run `HOME=/tmp/agent-trio-codex-home codex plugin marketplace add .` to check that `.agents/plugins/marketplace.json` is valid.
+5. If you add a new agent or skill, update the relevant plugin manifest.
 
 ## Validation checklist
 
 - `claude plugin validate .` passes
+- `HOME=/tmp/agent-trio-codex-home codex plugin marketplace add .` passes
 - `skills/using-agent-trio/SKILL.md` is the only full copy of the workflow contract
 - `agents/builder.md` and `agents/reviewer.md` are self-contained
 - All wrappers point to content, not to other wrappers
@@ -20,6 +22,7 @@ This is a skill/plugin repo. The workflow contract is `skills/using-agent-trio/S
 ## What to put where
 
 - Workflow rules → `skills/using-agent-trio/SKILL.md`
+- Codex plugin metadata → `.codex-plugin/plugin.json` and `.agents/plugins/marketplace.json`
 - Current durable lessons → .trio/learnings.md
 - Start instructions → README
 - Code style → linter
